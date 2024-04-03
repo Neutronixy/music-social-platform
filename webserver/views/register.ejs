@@ -1,0 +1,40 @@
+<%- include('header') %>
+
+<body>
+    <header>
+        <h2>Register</h2>
+    </header>
+    <main>
+        <div>
+            <form action="/register" method="POST">
+                <p>Email : <input name="email"></p>
+                <p>Password : <input name="password" type="password" oninput="checkPasswordStrength(this)"></p>
+                <div class="progress-wrapper">
+                    <progress max="4" value="0" id="password-strength"></progress>
+                </div>
+                <p>Identifier : <input name="userIdentifier"></p>
+                <input type="submit" value="Register">
+            </form>
+            <a href="/login">Login</a>
+        </div>
+        <% if (typeof errors !== 'undefined') { %>
+            <ul>
+                <% errors.forEach(error => { %>
+                    <li class="error"><%= error %></li>
+                <% }); %>
+            </ul>
+        <% } %>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    <script>
+        function checkPasswordStrength(passwordField) {
+            const password = passwordField.value;
+            const strength = zxcvbn(password).score;
+            const progressBar = document.getElementById("password-strength");
+            progressBar.value = strength;
+            const progressValue = progressBar.value / progressBar.max * 100;
+            progressBar.style.setProperty('--progress-value', progressValue + '%');
+        }
+    </script>
+</body>
+</html>

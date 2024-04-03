@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tracks</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="tracks.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Filters</h2>
+                <form id="filter-form">
+                    <div class="mb-3">
+                        <label for="trackName" class="form-label">Track Name</label>
+                        <input type="text" class="form-control" id="trackName" name="trackName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="genre" class="form-label">Genre/Subgenre</label>
+                        <input type="text" class="form-control" id="genre" name="genreSubgenreName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="licensing" class="form-label">Licensing</label>
+                        <input type="text" class="form-control" id="licensing" name="licensingName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recordCompany" class="form-label">Record Company</label>
+                        <input type="text" class="form-control" id="recordCompany" name="recordCompanyName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="artist" class="form-label">Artist</label>
+                        <input type="text" class="form-control" id="artist" name="artistName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="album" class="form-label">Album</label>
+                        <input type="text" class="form-control" id="album" name="albumName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="playlist" class="form-label">Playlist</label>
+                        <input type="text" class="form-control" id="playlist" name="playlistName">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                </form>
+                <a href="/dashboard">
+                    <button class="btn btn-secondary">Go to Dashboard</button>
+                </a>
+            </div>
+
+            <div class="col-md-8">
+                <h2>Tracks</h2>
+                <p>
+                    Explore our collection of tracks from various genres and artists. Use the filters on the left to
+                    narrow down your search and find the perfect track for your playlist.
+                </p>
+                <p>Total items found: <%= tracks.length %></p>
+                <div class="list-group">
+
+                    <% tracks.forEach(track=> { %>
+                        <div class="list-group-item track-box">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="<%= track.image_id %>" alt="<%= track.track_name %> image" class="img-fluid track-image">
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="title">
+                                        <%= track.track_name %>
+                                    </h5>
+                                    <p>
+                                        <%= track.track_description %>
+                                    </p>
+                                    <p>Length: <%= track.track_length %>
+                                    </p>
+                                    <% if (track.track_release_date !==null) { %>
+                                        <p>Release date: <%= new Date(track.track_release_date).toLocaleDateString() %>
+                                        </p>
+                                    <% } %>
+                                    <div class="star-rating">
+                                        <% for (let i=1; i <=5; i++) { %>
+                                            <span class="star<%= track.rating !== null && i <= track.rating ? ' star-filled' : '' %>">&#9733;</span>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
