@@ -1,3 +1,4 @@
+# Music Social Platform
 Home to the codebase of a dynamic music streaming social network that connects users through their love of music. Here, you'll find everything that powers our community's ability to explore, share, and discuss their favorite tunes and podcasts.
 
 ....
